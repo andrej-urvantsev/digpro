@@ -1,4 +1,4 @@
-package se.urvantsev.digpro.state;
+package se.urvantsev.digpro;
 
 import org.springframework.context.ApplicationEvent;
 

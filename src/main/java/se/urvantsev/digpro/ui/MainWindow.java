@@ -4,12 +4,12 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import se.urvantsev.digpro.UIResizedEvent;
 import se.urvantsev.digpro.location.LocationLoadStartedEvent;
 import se.urvantsev.digpro.location.LocationsLoadedEvent;
 import se.urvantsev.digpro.location.ReloadLocationsEvent;
 import se.urvantsev.digpro.state.ApplicationState;
 import se.urvantsev.digpro.state.ApplicationStateUpdated;
-import se.urvantsev.digpro.state.UIResizedEvent;
 
 import javax.swing.*;
 import java.awt.*;

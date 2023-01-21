@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import se.urvantsev.digpro.UIResizedEvent;
 import se.urvantsev.digpro.location.Location;
 import se.urvantsev.digpro.location.LocationsLoadedEvent;
-import se.urvantsev.digpro.state.UIResizedEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,13 +29,13 @@ public class MapCanvas extends JPanel {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private long x = 0L;
+	private final AtomicLong x = new AtomicLong();
 
-	private long y = 0L;
+	private final AtomicLong y = new AtomicLong();
 
-	private Set<Location> allLocations = Set.of();
+	private final Set<Location> allLocations = new HashSet<>();
 
-	private Set<Location> visibleLocations = Set.of();
+	private final Set<Location> visibleLocations = new HashSet<>();
 
 	private final Set<JLabel> points = new HashSet<>();
 
@@ -58,9 +59,8 @@ public class MapCanvas extends JPanel {
 				}
 				int dx = e.getX() - mousePt.x;
 				int dy = e.getY() - mousePt.y;
-				x = x - dx;
-				y = y - dy;
-				logger.trace("Viewport start at: ({}, {})", x, y);
+				x.addAndGet(-dx);
+				y.addAndGet(-dy);
 				mousePt = e.getPoint();
 				MapCanvas.this.refresh();
 			}
@@ -78,9 +78,14 @@ public class MapCanvas extends JPanel {
 	private void refresh() {
 		EXECUTOR.execute(() -> {
 			// For big datasets something like kd-trees range should be more performant
-			this.visibleLocations = allLocations.stream()
-					.filter((l) -> l.x() >= x && l.x() < (x + getWidth()) && l.y() >= y && l.y() < (y + getHeight()))
-					.collect(Collectors.toSet());
+			this.visibleLocations.clear();
+			var viewportX = x.get();
+			var viewportY = y.get();
+			this.visibleLocations
+					.addAll(allLocations
+							.stream().filter((l) -> l.x() >= viewportX && l.x() < (viewportX + getWidth())
+									&& l.y() >= viewportY && l.y() < (viewportY + getHeight()))
+							.collect(Collectors.toSet()));
 
 			logger.trace("{} points in the viewport", this.visibleLocations.size());
 
@@ -92,7 +97,7 @@ public class MapCanvas extends JPanel {
 				point.setForeground(Color.BLACK);
 				point.setSize(point.getFont().getSize(), point.getFont().getSize());
 				point.setFont(getFont().deriveFont(Map.of(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)));
-				point.setLocation((int) (location.x() - x), (int) (location.y() - y));
+				point.setLocation((int) (location.x() - viewportX), (int) (location.y() - viewportY));
 				point.setToolTipText(location.name());
 				points.add(point);
 				this.add(point);
@@ -121,14 +126,15 @@ public class MapCanvas extends JPanel {
 	}
 
 	public void center() {
-		x = 0;
-		y = 0;
+		x.set(0);
+		y.set(0);
 		refresh();
 	}
 
 	@EventListener
 	public void onLocationsLoadedEvent(LocationsLoadedEvent event) {
-		this.allLocations = event.locations();
+		this.allLocations.clear();
+		this.allLocations.addAll(event.locations());
 		refresh();
 	}
 

@@ -15,7 +15,9 @@ java -jar build/libs/digpro-0.0.1-SNAPSHOT.jar
 
 ## Notes
 
-* You can use mouse to move over map(drag&drop it).
+* You can use mouse to move over the map(drag&drop it).
 * There is not any tests but there isn't much business logic either.
-* Method which is used to filter out visible locations is simple, for bigger datasets something like `kd-trees` should
-  be used.
+* Method which is used to filter out visible locations is simple, for bigger datasets something like `kd-trees` should be used.
+* Things like locations URL and auto-reload frequency should be moved to application properties rather than to be hard-coded, but I'm out of time now.
+* ViewPort coordinates are stored as fields in MapCanvas, but more correct way is to send them as parameters
+  from `mouseDragged` to `refresh` method to avoid possible inconsistency(again out of time to fix this).
