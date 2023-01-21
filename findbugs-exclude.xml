@@ -1,0 +1,29 @@
+<FindBugsFilter>
+    <Match>
+        <Bug pattern="DM_EXIT"/>
+    </Match>
+    <Match>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+    <Match>
+        <Bug pattern="SE_NO_SERIALVERSIONID"/>
+    </Match>
+    <Match>
+        <Bug pattern="S508C_NON_TRANSLATABLE_STRING"/>
+    </Match>
+    <Match>
+        <Bug pattern="S508C_NO_SETLABELFOR"/>
+    </Match>
+    <Match>
+        <Bug pattern="S508C_SET_COMP_COLOR"/>
+    </Match>
+    <Match>
+        <Bug pattern="S508C_NO_SETSIZE"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>

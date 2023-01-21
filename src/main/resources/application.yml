@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: v2t-api
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: "@application.version@"
+    description: "@application.description@"
+
+logging:
+  level:
+    se:
+      urvantsev:
+        digpro: DEBUG
