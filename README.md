@@ -5,7 +5,7 @@
 I used java 19, but java 17 should work as well
 
 ```bash
-ssh clone git@github.com:lazystone/digpro.git
+git clone https://github.com/lazystone/digpro.git
 cd digpro
 ./gradlew clean build
 
