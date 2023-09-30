@@ -4,8 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class ApplicationStateUpdated extends ApplicationEvent {
 
-	public ApplicationStateUpdated(Object source) {
-		super(source);
-	}
-
+    public ApplicationStateUpdated(Object source) {
+        super(source);
+    }
 }

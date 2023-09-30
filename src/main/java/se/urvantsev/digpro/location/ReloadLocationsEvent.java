@@ -4,8 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class ReloadLocationsEvent extends ApplicationEvent {
 
-	public ReloadLocationsEvent(Object source) {
-		super(source);
-	}
-
+    public ReloadLocationsEvent(Object source) {
+        super(source);
+    }
 }

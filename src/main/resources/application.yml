@@ -1,4 +1,6 @@
 spring:
+  aop:
+    auto: off
   application:
     name: v2t-api
 
@@ -10,6 +12,12 @@ info:
 
 logging:
   level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: INFO
     se:
       urvantsev:
         digpro: DEBUG
+
+

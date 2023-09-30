@@ -1,38 +1,37 @@
 package se.urvantsev.digpro.state;
 
+import static java.util.Objects.requireNonNull;
+
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-import static java.util.Objects.requireNonNull;
-
 @Component
 public class ApplicationState {
 
-	private final ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-	private boolean locationReloadEnabled = false;
+    private boolean locationReloadEnabled = false;
 
-	@PostConstruct
-	void init() {
-		publishUpdate();
-	}
+    @PostConstruct
+    void init() {
+        publishUpdate();
+    }
 
-	private void publishUpdate() {
-		applicationEventPublisher.publishEvent(new ApplicationStateUpdated(this));
-	}
+    private void publishUpdate() {
+        applicationEventPublisher.publishEvent(new ApplicationStateUpdated(this));
+    }
 
-	public ApplicationState(ApplicationEventPublisher applicationEventPublisher) {
-		this.applicationEventPublisher = requireNonNull(applicationEventPublisher);
-	}
+    public ApplicationState(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = requireNonNull(applicationEventPublisher);
+    }
 
-	public boolean locationReloadEnabled() {
-		return locationReloadEnabled;
-	}
+    public boolean locationReloadEnabled() {
+        return locationReloadEnabled;
+    }
 
-	public void locationReloadEnabled(boolean locationReloadEnabled) {
-		this.locationReloadEnabled = locationReloadEnabled;
-		publishUpdate();
-	}
-
+    public void locationReloadEnabled(boolean locationReloadEnabled) {
+        this.locationReloadEnabled = locationReloadEnabled;
+        publishUpdate();
+    }
 }
