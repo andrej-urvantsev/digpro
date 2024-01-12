@@ -1,25 +1,25 @@
 plugins {
     // https://github.com/spring-gradle-plugins/dependency-management-plugin
-    id("io.spring.dependency-management") version "1.1.3"
+    id("io.spring.dependency-management") version "1.1.4"
 
-    // https://docs.spring.io/spring-boot/docs/3.1.x/gradle-plugin/reference/htmlsingle/
-    id("org.springframework.boot") version "3.1.4"
+    // https://docs.spring.io/spring-boot/docs/3.2.x/gradle-plugin/reference/htmlsingle/
+    id("org.springframework.boot") version "3.2.1"
 
     // https://github.com/n0mer/gradle-git-properties
     id("com.gorylenko.gradle-git-properties") version "2.4.1"
 
     // https://github.com/spotbugs/spotbugs-gradle-plugin
-    id("com.github.spotbugs") version "5.1.3"
+    id("com.github.spotbugs") version "6.0.6"
 
     // https://github.com/diffplug/spotless/tree/main/plugin-gradle
-    id("com.diffplug.spotless") version "6.22.0"
+    id("com.diffplug.spotless") version "6.23.3"
 
     // https://github.com/ben-manes/gradle-versions-plugin
     id("com.github.ben-manes.versions") version "0.48.0"
 
     // https://github.com/graalvm/native-build-tools
     // https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
-    id("org.graalvm.buildtools.native") version "0.9.27"
+    id("org.graalvm.buildtools.native") version "0.9.28"
 
     checkstyle
     jacoco
@@ -41,7 +41,7 @@ repositories {
 dependencyManagement {
     imports {
         // https://github.com/spotbugs/spotbugs/issues/2567
-        mavenBom("org.ow2.asm:asm-bom:9.5")
+        mavenBom("org.ow2.asm:asm-bom:9.6")
     }
 }
 
@@ -53,7 +53,7 @@ dependencies {
     // https://github.com/KengoTODA/findbugs-slf4j
     spotbugsPlugins("jp.skypencil.findbugs.slf4j:bug-pattern:1.5.0@jar")
     // https://github.com/mebigfatguy/fb-contrib/releases/latest
-    spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.0")
+    spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.4")
     // https://github.com/find-sec-bugs/find-sec-bugs/
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0")
 
@@ -62,7 +62,7 @@ dependencies {
     // https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-scanning-index
     annotationProcessor("org.springframework:spring-context-indexer")
 
-    implementation("com.formdev:flatlaf:3.2.1")
+    implementation("com.formdev:flatlaf:3.2.5")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("com.squareup.okhttp3:okhttp")
 
@@ -71,16 +71,17 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     // https://assertj.github.io/doc/#assertj-overview
-    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.assertj:assertj-core:3.25.1")
 
     // https://github.com/datafaker-net/datafaker/
-    testImplementation("net.datafaker:datafaker:2.0.1")
+    testImplementation("net.datafaker:datafaker:2.1.0")
 }
 
 spotless {
     java {
         target("src/main/java", "src/test/java")
-        palantirJavaFormat("2.38.0")
+        // https://github.com/palantir/palantir-java-format/releases
+        palantirJavaFormat("2.39.0")
     }
 }
 
@@ -176,7 +177,8 @@ tasks {
 graalvmNative {
     metadataRepository {
         enabled.set(true)
-        version.set("0.3.4")
+        // https://github.com/oracle/graalvm-reachability-metadata/releases
+        version.set("0.3.5")
     }
     binaries {
         named("main") {
