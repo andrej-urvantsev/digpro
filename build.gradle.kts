@@ -3,23 +3,23 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
 
     // https://docs.spring.io/spring-boot/docs/3.2.x/gradle-plugin/reference/htmlsingle/
-    id("org.springframework.boot") version "3.2.1"
+    id("org.springframework.boot") version "3.2.2"
 
     // https://github.com/n0mer/gradle-git-properties
     id("com.gorylenko.gradle-git-properties") version "2.4.1"
 
     // https://github.com/spotbugs/spotbugs-gradle-plugin
-    id("com.github.spotbugs") version "6.0.6"
+    id("com.github.spotbugs") version "6.0.7"
 
     // https://github.com/diffplug/spotless/tree/main/plugin-gradle
-    id("com.diffplug.spotless") version "6.23.3"
+    id("com.diffplug.spotless") version "6.25.0"
 
     // https://github.com/ben-manes/gradle-versions-plugin
-    id("com.github.ben-manes.versions") version "0.48.0"
+    id("com.github.ben-manes.versions") version "0.51.0"
 
     // https://github.com/graalvm/native-build-tools
     // https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
-    id("org.graalvm.buildtools.native") version "0.9.28"
+    id("org.graalvm.buildtools.native") version "0.10.0"
 
     checkstyle
     jacoco
@@ -62,7 +62,7 @@ dependencies {
     // https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-scanning-index
     annotationProcessor("org.springframework:spring-context-indexer")
 
-    implementation("com.formdev:flatlaf:3.2.5")
+    implementation("com.formdev:flatlaf:3.3")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("com.squareup.okhttp3:okhttp")
 
@@ -71,7 +71,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     // https://assertj.github.io/doc/#assertj-overview
-    testImplementation("org.assertj:assertj-core:3.25.1")
+    testImplementation("org.assertj:assertj-core:3.25.3")
 
     // https://github.com/datafaker-net/datafaker/
     testImplementation("net.datafaker:datafaker:2.1.0")
@@ -81,7 +81,7 @@ spotless {
     java {
         target("src/main/java", "src/test/java")
         // https://github.com/palantir/palantir-java-format/releases
-        palantirJavaFormat("2.39.0")
+        palantirJavaFormat("2.40.0")
     }
 }
 
@@ -178,7 +178,7 @@ graalvmNative {
     metadataRepository {
         enabled.set(true)
         // https://github.com/oracle/graalvm-reachability-metadata/releases
-        version.set("0.3.5")
+        version.set("0.3.6")
     }
     binaries {
         named("main") {
