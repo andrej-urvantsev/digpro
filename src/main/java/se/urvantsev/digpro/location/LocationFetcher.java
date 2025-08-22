@@ -76,26 +76,22 @@ public class LocationFetcher {
 
             try (var response = httpClient.newCall(request).execute()) {
                 var body = response.body();
-                if (body == null) {
-                    logger.warn("No locations returned in the response");
-                } else {
-                    var sc = new Scanner(body.byteStream(), StandardCharsets.ISO_8859_1);
-                    while (sc.hasNextLine()) {
-                        var line = sc.nextLine().strip();
-                        if (line.isEmpty() || line.startsWith("#")) {
-                            continue;
-                        }
-                        var optionalLocation = Location.parse(line);
-                        if (optionalLocation.isEmpty()) {
-                            logger.warn("Location can't be parsed: {}", line.replaceAll("[\r\n]", ""));
-                        } else {
-                            var location = optionalLocation.get();
-                            logger.debug("Received {}", location.toString().replaceAll("[\r\n]", ""));
-                            locations.add(location);
-                        }
+                var sc = new Scanner(body.byteStream(), StandardCharsets.ISO_8859_1);
+                while (sc.hasNextLine()) {
+                    var line = sc.nextLine().strip();
+                    if (line.isEmpty() || line.startsWith("#")) {
+                        continue;
                     }
-                    logger.debug("Received {} locations", locations.size());
+                    var optionalLocation = Location.parse(line);
+                    if (optionalLocation.isEmpty()) {
+                        logger.warn("Location can't be parsed: {}", line.replaceAll("[\r\n]", ""));
+                    } else {
+                        var location = optionalLocation.get();
+                        logger.debug("Received {}", location.toString().replaceAll("[\r\n]", ""));
+                        locations.add(location);
+                    }
                 }
+                logger.debug("Received {} locations", locations.size());
 
             } catch (IOException ex) {
                 logger.error("Fetching locations failed", ex);

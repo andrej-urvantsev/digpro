@@ -1,8 +1,6 @@
-![Application screenshow](./application.png)
+![Application screenshot](./application.png)
 
 ## Build instructions
-
-I used java 19, but java 17 should work as well
 
 ```bash
 git clone https://github.com/lazystone/digpro.git
@@ -22,4 +20,11 @@ java -jar build/libs/digpro-0.0.1-SNAPSHOT.jar
 * ViewPort coordinates are stored as fields in MapCanvas, but more correct way is to send them as parameters
   from `mouseDragged` to `refresh` method to avoid possible inconsistency(again out of time to fix this).
 
-* To generate reachability metadata(for a native build): `java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar build/libs/digpro-0.0.1-SNAPSHOT.jar`
+## Native build
+
+* For better Swing support use https://bell-sw.com/pages/downloads/native-image-kit/#nik-24-(jdk-24)
+* Install additional libraries: https://www.graalvm.org/latest/getting-started/linux/#prerequisites-for-native-image-on-linux
+* Build normal java application: `./gradlew build`
+* Generate reachability metadata(for a native build): `java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar build/libs/digpro-0.0.1-SNAPSHOT.jar` and use application as much as possible.
+* Build: `./gradlew nativeCompile`
+

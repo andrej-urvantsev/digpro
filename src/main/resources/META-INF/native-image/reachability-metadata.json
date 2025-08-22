@@ -2691,6 +2691,13 @@
       "type": "sun.awt.X11.XErrorHandlerUtil",
       "methods": [
         {
+          "name": "globalErrorHandler",
+          "parameterTypes": [
+            "long",
+            "long"
+          ]
+        },
+        {
           "name": "init",
           "parameterTypes": [
             "long"
