@@ -21,3 +21,5 @@ java -jar build/libs/digpro-0.0.1-SNAPSHOT.jar
 * Things like locations URL and auto-reload frequency should be moved to application properties rather than to be hard-coded, but I'm out of time now.
 * ViewPort coordinates are stored as fields in MapCanvas, but more correct way is to send them as parameters
   from `mouseDragged` to `refresh` method to avoid possible inconsistency(again out of time to fix this).
+
+* To generate reachability metadata(for a native build): `java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar build/libs/digpro-0.0.1-SNAPSHOT.jar`

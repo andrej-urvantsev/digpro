@@ -183,6 +183,9 @@ graalvmNative {
             fallback.set(false)
             richOutput.set(true)
             buildArgs.add("-Djava.awt.headless=false")
+            buildArgs.add("--enable-native-access=ALL-UNNAMED")
+            buildArgs.add("-H:+UnlockExperimentalVMOptions")
+            buildArgs.add("-H:+ForeignAPISupport")
         }
     }
 }
